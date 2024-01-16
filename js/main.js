@@ -7,7 +7,7 @@ const progress = (value) => {
   progressText.innerHTML = `${value}`;
 };
 
-let quetions = [],
+let questions = [],
   time = 30,
   score = 0,
   currentQuetion,
@@ -30,10 +30,49 @@ const startQuiz = () => {
   fetch(url)
     .then((res) => res.json())
     .then((data) => {
-      quetions = data.results;
-      console.log(quetions);
+      questions = data.results;
+      console.log(questions);
+      console.log(data);
+      setTimeout(() => {
+        startScreen.classList.add("hide");
+        quiz.classList.remove("hide");
+        currentQuetion = 1;
+        showQuestion(questions[0]);
+      }, 1000);
     });
 };
-
 startBtn.addEventListener("click", startQuiz);
 //20:07
+console.log(questions);
+
+const showQuestion = (question) => {
+  const questionText = document.querySelector(".question"),
+    answerWrapper = document.querySelector(".question-wrapper"),
+    questionNumber = document.querySelector(".number");
+
+  questionText.innerHTML = question.question;
+  // correct or wrong answers
+  const answers = [
+    ...questions.incorrect_answers,
+    question.correct_answer.toString(),
+  ];
+  // Correct answer will be always at last
+  answers.sort(() => Math.random() - 0.5);
+  answerWrapper.innerHTML = "";
+  answers.forEach((answer) => {
+    answerWrapper.innerHTML += `<div class="answer border p-3 rounded-1 d-flex justify-content-between" style="cursor: pointer;">
+    <span class="text">${answer}</span>
+    <span
+        class="checkbox text-center rounded-circle border d-flex justify-content-center align-items-center p-1"
+        style="width: 20px; height: 20px;">
+        <div class="icon">🗸</div>
+    </span>
+</div>`;
+  });
+  questionNumber.innerHTML = `Question <span class="current">${
+    questions.indexOf(question) + 1
+  }</span>
+  <span classs="total">/${questions.length}</span>`;
+};
+console.log(questions);
+// There are Error in questions which can't read them
