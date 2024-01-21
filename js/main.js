@@ -118,12 +118,13 @@ const checkAnswer = () => {
     const answer = selectedAnswer.querySelector(".text");
     if (answer === questions[currentQuetion - 1].correct_answer) {
       // if anser matched with current question correct answer
-
       score++;
+      console.log(score);
       selectedAnswer.classList.add("correct");
     } else {
       // correct added lets add wrong on selected
       selectedAnswer.classList.add("wrong");
+
       const correctAnswer = document
         .querySelectorAll(".answer")
         .forEach((answer) => {
@@ -176,13 +177,13 @@ const nextQuestion = () => {
     showScore();
   }
 };
-
 const endScreen = document.querySelector(".end-screen"),
-  finalScore = document.querySelector(".final-score"),
-  totalScore = document.querySelector(".total-score");
+  finalScore = document.querySelector(".final_score"),
+  totalScore = document.querySelector(".total_score");
 const showScore = () => {
   endScreen.classList.remove("hide");
   quiz.classList.add("hide");
+  console.log(score);
   finalScore.innerHTML = score;
   totalScore.innerHTML = `/${questions.length}`;
 };

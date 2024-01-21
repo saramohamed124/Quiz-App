@@ -17,13 +17,14 @@
   border-color: #2e63f5;
 }
 
-.answer.correct {
+.wrong {
+  border: 3px solid #ca2929 !important;
+}
+
+.correct {
   border: 3px solid #0fd630 !important;
 }
 
-.answer.wrong {
-  border: 3px solid #ca2929 !important;
-}
 
 button.btn.next {
   display: none;
